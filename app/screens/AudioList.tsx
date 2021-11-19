@@ -1,22 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, Dimensions, StatusBar } from 'react-native';
 import { AudioContext } from '../context/AudioProvider';
 import { RecyclerListView, LayoutProvider } from 'recyclerlistview';
-
-
 import AudioListItem from '../components/AudioListItem';
-import Screen from '../components/Screen';
 import OptionModal from '../components/OptionModal';
-import { Audio } from 'expo-av';
-import {
-  play,
-  pause,
-  resume,
-  playNext,
-  selectAudio,
-} from '../misc/audioController';
-import PlayerWidget from '../../components/PlayerWidget';
-import { storeAudioForNextOpening } from '../misc/helper';
+import { selectAudio } from '../misc/audioController';
 
 export class AudioList extends Component {
   static contextType = AudioContext;
@@ -179,7 +167,17 @@ export class AudioList extends Component {
         {({ dataProvider, isPlaying }) => {
           if (!dataProvider._data.length) return null;
           return (
-            <Screen>
+            <View style={{
+              flex: 1,
+              backgroundColor: '#8400ff'
+            }}>
+              <Text style={{
+                color: 'white',
+                fontSize: 20,
+                fontWeight: 'bold', margin: 20,
+                alignSelf: 'center'
+              }}>Your Songs</Text>
+
               <RecyclerListView
                 dataProvider={dataProvider}
                 layoutProvider={this.layoutProvider}
@@ -206,7 +204,7 @@ export class AudioList extends Component {
                 }
                 visible={this.state.optionModalVisible}
               />
-            </Screen>
+            </View>
           );
         }}
       </AudioContext.Consumer>

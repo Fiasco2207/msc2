@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "music-app",
-    "slug": "music-app",
+    "name": "Apollo",
+    "slug": "Apollo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/APOLLO.png",
     "scheme": "myapp",
     "userInterfaceStyle": "dark",
     "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/images/APOLLO.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#a93aff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -25,7 +25,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.GroupProject.Apollo"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

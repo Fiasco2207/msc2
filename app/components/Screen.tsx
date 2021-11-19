@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, StyleSheet, StatusBar } from 'react-native';
-import color from '../misc/color';
+import { View, StyleSheet, StatusBar, Text } from 'react-native';
+
 
 const Screen = ({ children }) => {
   return <View style={styles.container}>{children}</View>;

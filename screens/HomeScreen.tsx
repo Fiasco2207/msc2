@@ -1,16 +1,11 @@
 import * as React from 'react';
 import { FlatList, StyleSheet, View, StatusBar, Text, ScrollView, Image } from 'react-native';
 import { useEffect, useState } from 'react';
-
 import { API, graphqlOperation } from 'aws-amplify';
 
 import AlbumCategory from '../components/AlbumCategory';
-import albumCategories from '../data/albumCategories';
 import { LinearGradient } from 'expo-linear-gradient';
-import colors from '../config/colors';
-
 import { listAlbumCategorys } from '../src/graphql/queries';
-import PlayerWidget from '../components/PlayerWidget';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
@@ -44,37 +39,40 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-        <LinearGradient colors={['#8400ff', '#2d067c', '#020024']}>
-          <View style={{
-            backgroundColor: 'transparent',
-            height: 80,
-            flexDirection: 'row',
-          }}>
-            <MaterialCommunityIcons name='home' size={30} color={'white'} style={{
-              marginTop: 30,
-              marginLeft: 20,
-              paddingRight: 10,
-            }} />
-            <Text style={{
-              color: '#fff',
-              marginTop:33,
-              fontSize: 20,
-              fontWeight: 'bold',
-            }}>Home</Text>
-          </View>
-            <ScrollView>
+      <LinearGradient colors={['#8400ff', '#2d067c', '#020024']}>
+        <StatusBar
+          backgroundColor={'#8400ff'}
+        />
+        <View style={{
+          backgroundColor: 'transparent',
+          height: 80,
+          flexDirection: 'row',
+        }}>
+          <MaterialCommunityIcons name='home' size={30} color={'white'} style={{
+            marginTop: 30,
+            marginLeft: 20,
+            paddingRight: 10,
+          }} />
+          <Text style={{
+            color: '#fff',
+            marginTop: 33,
+            fontSize: 20,
+            fontWeight: 'bold',
+          }}>Home</Text>
+        </View>
+        <ScrollView>
           <View style={{
             marginBottom: 100,
             borderBottomLeftRadius: 10,
           }}>
             <Image
-              source={require('../assets/images/home-back.png')}
+              source={require('../assets/images/perdotcom-bot-head.gif')}
               style={{
                 width: '100%',
                 height: 180,
                 position: 'absolute',
                 opacity: 0.7,
-                borderBottomLeftRadius: 15  ,
+                borderBottomLeftRadius: 15,
                 borderBottomRightRadius: 15,
               }} />
           </View>
@@ -90,11 +88,11 @@ export default function HomeScreen() {
               />
             )}
             keyExtractor={(item) => item.id}
-            style={{ marginTop: 110, bottom: 80}}
+            style={{ marginTop: 110, bottom: 80 }}
           />
-      </ScrollView>
-        </LinearGradient>
-      </View>
+        </ScrollView>
+      </LinearGradient>
+    </View>
   );
 }
 

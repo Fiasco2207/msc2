@@ -1,22 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Dimensions } from 'react-native';
-import Screen from '../components/Screen';
-import color from '../misc/color';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { View, StyleSheet, Text, Dimensions, Image } from 'react-native';
 import Slider from '@react-native-community/slider';
 import PlayerButton from '../components/PlayerButton';
 import { AudioContext } from '../context/AudioProvider';
 import {
   changeAudio,
   moveAudio,
-  pause,
-  play,
-  playNext,
-  resume,
+  pause
 } from '../misc/audioController';
-import { convertTime, storeAudioForNextOpening } from '../misc/helper';
+import { convertTime } from '../misc/helper';
 import { selectAudio } from '../misc/audioController';
-import { LinearGradient } from 'expo-linear-gradient';
 
 const { width } = Dimensions.get('window');
 
@@ -175,85 +168,81 @@ const Player = () => {
 
   if (!context.currentAudio) return null;
 
-
-
-
   return (
-    <Screen>
-      <View style={styles.container}>
-        <View style={styles.audioCountContainer}>
-          <View style={{ flexDirection: 'row' }}>
-            {context.isPlayListRunning && (
-              <>
-                <Text style={{ fontWeight: 'bold' }}>From Playlist: </Text>
-                <Text>{context.activePlayList.title}</Text>
-              </>
-            )}
-          </View>
-          <Text style={styles.audioCount}>{`${context.currentAudioIndex + 1
-            } / ${context.totalAudioCount}`}</Text>
+    <View style={styles.container}>
+      <Image source={require('../../assets/images/wave.png')} style={{ width: '100%', height: '30%', justifyContent: 'center', alignItems: 'center' }} />
+      <View style={styles.audioCountContainer}>
+        <Text style={{ color: 'white', bottom: 220, marginLeft: '35%', fontWeight: 'bold', fontSize: 20 }}>Now Playing</Text>
+        <View style={{ flexDirection: 'row' }}>
+          {context.isPlayListRunning && (
+            <>
+              <Text style={{ fontWeight: 'bold' }}>From Playlist: </Text>
+              <Text>{context.activePlayList.title}</Text>
+            </>
+          )}
         </View>
-        <View style={styles.midBannerContainer}>
-          <MaterialCommunityIcons
-            name='music-circle'
-            size={300}
-            color={context.isPlaying ? color.MAIN_ACTIVE_ICON : color.INACTIVE_MAIN_ICON}
-          />
-        </View>
-        <View style={styles.audioPlayerContainer}>
-          <Text numberOfLines={1} style={styles.audioTitle}>
-            {context.currentAudio.filename}
+        <Text style={styles.audioCount}>{`${context.currentAudioIndex + 1
+          } / ${context.totalAudioCount}`}</Text>
+      </View>
+      <View style={styles.midBannerContainer}>
+        {context.isPlaying ? <Image source={require('../../assets/images/playergif.gif')} style={{ width: 300, height: 300 }} /> : <Image source={require('../../assets/images/player-0.png')} style={{ width: 300, height: 300 }} />}
+      </View>
+      <View style={styles.audioPlayerContainer}>
+        <Text numberOfLines={1} style={styles.audioTitle}>
+          {context.currentAudio.filename}
+        </Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingHorizontal: 15,
+          }}
+        >
+          <Text style={{ color: "#8400ff", bottom: 70 }} >{convertTime(context.currentAudio.duration)}</Text>
+          <Text style={{ color: "#8400ff", bottom: 70 }} >
+            {currentPosition ? currentPosition : renderCurrentTime()}
           </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              paddingHorizontal: 15,
-            }}
-          >
-            <Text style={{ color: "white", bottom: 70 }} >{convertTime(context.currentAudio.duration)}</Text>
-            <Text style={{ color: "white", bottom: 70 }} >
-              {currentPosition ? currentPosition : renderCurrentTime()}
-            </Text>
-          </View>
-          <Slider
-            style={[{ bottom: 70 }, { width: width, height: 40 }]}
-            minimumValue={0}
-            maximumValue={1}
-            value={calculateSeebBar()}
-            minimumTrackTintColor={"white"}
-            maximumTrackTintColor={"white"}
-            onValueChange={value => {
-              setCurrentPosition(
-                convertTime(value * context.currentAudio.duration)
-              );
-            }}
-            onSlidingStart={async () => {
-              if (!context.isPlaying) return;
+        </View>
+        <Slider
+          style={[{ bottom: 70 }, { width: width, height: 40, color: '#8400ff', }]}
+          minimumValue={0}
+          maximumValue={1}
+          value={calculateSeebBar()}
+          minimumTrackTintColor={"#8400ff"}
+          maximumTrackTintColor={"#8400ff"}
+          onValueChange={value => {
+            setCurrentPosition(
+              convertTime(value * context.currentAudio.duration)
+            );
+          }}
+          onSlidingStart={async () => {
+            if (!context.isPlaying) return;
 
-              try {
-                await pause(context.playbackObj);
-              } catch (error) {
-                console.log('error inside onSlidingStart callback', error);
-              }
-            }}
-            onSlidingComplete={async value => {
-              await moveAudio(context, value);
-              setCurrentPosition(0);
+            try {
+              await pause(context.playbackObj);
+            } catch (error) {
+              console.log('error inside onSlidingStart callback', error);
+            }
+          }}
+          onSlidingComplete={async value => {
+            await moveAudio(context, value);
+            setCurrentPosition(0);
+          }}
+        />
+        <View style={styles.audioControllers}>
+          <PlayerButton iconType='PREV' onPress={handlePrevious} size={170} style={{ left: 50, color: '#8400ff', }} />
+          <PlayerButton
+            onPress={handlePlayPause}
+            size={160}
+            iconType={context.isPlaying ? 'PLAY' : 'PAUSE'}
+            style={{
+              color: '#8400ff',
             }}
           />
-          <View style={styles.audioControllers}>
-            <PlayerButton iconType='PREV' onPress={handlePrevious} size={170} style={{ left: 50 }} />
-            <PlayerButton
-              onPress={handlePlayPause}
-              size={160}
-              iconType={context.isPlaying ? 'PLAY' : 'PAUSE'}
-            />
-            <PlayerButton iconType='NEXT' onPress={handleNext} size={170} style={{ right: 50 }} />
-          </View>
+          <PlayerButton iconType='NEXT' onPress={handleNext} size={170} style={{ right: 50, color: '#8400ff', }} />
         </View>
       </View>
-    </Screen>
+    </View>
 
   );
 };
@@ -275,21 +264,24 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    backgroundColor: '#fff'
   },
   audioCount: {
     textAlign: 'right',
-    color: color.FONT_LIGHT,
+    /* color: color.FONT_LIGHT, */
+    color: '#000',
     fontSize: 14,
   },
   midBannerContainer: {
     flex: 1,
-    justifyContent: 'center',
+    /* justifyContent: 'center', */
     alignItems: 'center',
-    bottom: 30,
+    position: 'relative',
+    bottom: 200
   },
   audioTitle: {
     fontSize: 20,
-    color: color.FONT,
+    color: 'black',
     fontWeight: "bold",
     padding: 15,
     bottom: 70

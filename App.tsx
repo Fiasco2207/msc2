@@ -6,8 +6,7 @@ import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import PlayerWidget from './components/PlayerWidget';
 import Player from './app/screens/Player';
-//theme
-import { DefaultTheme, DarkTheme, Provider as PaperProvider } from 'react-native-paper';
+
 
 //AWS details
 import Amplify from 'aws-amplify'
@@ -34,7 +33,6 @@ export default function App() {
     return null;
   } else {
     return (
-      <PaperProvider theme={DarkTheme} >
         <SafeAreaProvider>
           <AppContext.Provider value={{
             songId,
@@ -45,7 +43,6 @@ export default function App() {
             <PlayerWidget />
           </AppContext.Provider>
         </SafeAreaProvider>
-      </PaperProvider>
     );
   }
 }

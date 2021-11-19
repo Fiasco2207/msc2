@@ -1,10 +1,8 @@
-import { FontAwesome, Entypo, EvilIcons, MaterialCommunityIcons, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
+import { Entypo, MaterialCommunityIcons, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import { ColorSchemeName, Pressable, View } from 'react-native';
 
-import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import HomeScreen from '../screens/HomeScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
@@ -14,8 +12,6 @@ import AlbumScreen from "../screens/AlbumScreen";
 import colors from '../config/colors';
 import AudioList from '../app/screens/AudioList';
 import Player from '../app/screens/Player';
-import AppNavigator from '../app/navigation/AppNavigator';
-import PlayerWidget from '../components/PlayerWidget';
 import TabOneScreen from '../screens/TabOneScreen';
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
@@ -38,14 +34,6 @@ function BottomTabNavigator() {
         options={{
           title: 'Home',
           tabBarIcon: ({ size }) => <Entypo name="home" color={colors.white} size={size} style={{ marginBottom: -3 }} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Search"
-        component={AppNavigator}
-        options={{
-          title: 'Search',
-          tabBarIcon: ({ color }) => <EvilIcons name="search" color={colors.white} size={30} style={{ marginBottom: -3 }} />,
         }}
       />
       {/*
@@ -76,11 +64,11 @@ function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name='Theme'
+        name='Radio'
         component={TabOneScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <FontAwesome5 name='brush' size={size} color={color} />
+            <MaterialCommunityIcons name="radio" color={color} size={30} style={{ marginBottom: -3 }} />
           ),
         }}
       />

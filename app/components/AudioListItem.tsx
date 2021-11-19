@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import color from '../misc/color';
-import colors from '../../config/colors';
 
 
 const getThumbnailText = filename => filename[0];
@@ -92,7 +91,7 @@ const AudioListItem = ({
 const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.primary,
+    backgroundColor: "#BC8CF2",
     borderBottomRightRadius: 50,
     borderTopRightRadius: 50,
     flexDirection: 'row',
@@ -123,7 +122,7 @@ const styles = StyleSheet.create({
     color: color.FONT,
     alignSelf: "center",
     justifyContent: "center",
-    top: 5
+    top: 7
 
   },
   titleContainer: {

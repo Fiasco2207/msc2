@@ -4,8 +4,6 @@ import colors from '../../config/colors';
 import { Album } from '../../types';
 import styles from './style';
 
-import PlayerWidget from '../PlayerWidget';
-
 export type AlbumHeaderProps = {
     album: Album;
 }

@@ -1,15 +1,11 @@
 import { useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator, ScrollView } from 'react-native';
+import { FlatList, ActivityIndicator, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { API, graphqlOperation } from 'aws-amplify';
-
-import albumDetails from '../data/albumDetails';
 import SongListItem from '../components/SongListItem';
 import AlbumHeader from '../components/AlbumHeader';
-import PlayerWidget from '../components/PlayerWidget';
-
 import { getAlbum } from '../src/graphql/queries'
 
 
@@ -47,7 +43,7 @@ const AlbumScreen = () => {
           data={album.songs.items}
           renderItem={({ item }) => <SongListItem song={item} />}
           keyExtractor={(item) => item.id}
-          ListHeaderComponent={() => <AlbumHeader album={album} />}  
+          ListHeaderComponent={() => <AlbumHeader album={album} />}
         />
       </ScrollView>
     </LinearGradient>

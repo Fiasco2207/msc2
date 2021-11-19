@@ -2,7 +2,7 @@ export default {
   APP_BG: '#fff',
   FONT: '#fff',
   FONT_MEDIUM: '#636363',
-  FONT_LIGHT: '#b6b8b9',
+  FONT_LIGHT: '#390840',
   MODAL_BG: 'rgba(0, 0, 0, 0.2)',
   MAIN_ACTIVE_ICON: "purple",
   INACTIVE_MAIN_ICON: "#d4abfa",

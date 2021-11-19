@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Text, Image, View, TouchableOpacity } from 'react-native';
-import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { API, graphqlOperation } from 'aws-amplify';
 import AudioNotification from "react-native-audio-notification";
 
@@ -123,7 +123,6 @@ const PlayerWidget = () => {
             <Text style={styles.title}>{song.title}</Text>
             <Text style={styles.artist}>{song.artist}</Text>
           </View>
-
           <View style={styles.iconsContainer}>
             <TouchableOpacity onPress={onPlayPausePress}>
               <FontAwesome name={isPlaying ? 'pause' : 'play'} size={30} color={"white"} />
